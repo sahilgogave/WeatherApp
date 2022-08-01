@@ -1,4 +1,32 @@
 const cityForm=document.querySelector('.change-location')
+const card=document.querySelector('.card');
+const details=document.querySelector('.details')
+const time=document.querySelector('img.time');
+const icon=document.querySelector('.icon img');
+
+
+const updateUI =  (data) =>{
+    const cityInfo =data.cityInfo;
+    const weather=data.weather;
+
+    //update details template
+    console.log(cityInfo,weather);
+    details.innerHTML=`
+        <h5 class="my-3">${cityInfo.EnglishName}</h5>
+        <div class="my-3">${weather.WeatherText}</div>
+        <div class="display-4 my-4">
+            <span>${weather.Temperature.Metric.Value}</span>
+            <span>&deg;C</span>
+        </div>
+    `;
+
+    //remove the d-none dlass if present
+
+    if(card.classList.contains('d-none')){
+        card.classList.remove('d-none')
+    }
+}
+
 const updateCity = async(city)=>{
     // console.log(city);
 
@@ -6,8 +34,8 @@ const updateCity = async(city)=>{
     const weather = await getWeather(cityInfo.Key);
 
     return {
-        cityInfo:cityInfo,
-        weather:weather
+        cityInfo,
+        weather
     }
 }
 
@@ -22,6 +50,6 @@ cityForm.addEventListener('submit',(e)=>{
 
     //update the city with new city each time
     updateCity(city)
-        .then(data => console.log(data))
+        .then(data => updateUI(data))
         .catch(err=>console.log(err));
 })
