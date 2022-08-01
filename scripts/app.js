@@ -10,7 +10,7 @@ const updateUI =  (data) =>{
     const weather=data.weather;
 
     //update details template
-    console.log(cityInfo,weather);
+    //console.log(cityInfo,weather);
     details.innerHTML=`
         <h5 class="my-3">${cityInfo.EnglishName}</h5>
         <div class="my-3">${weather.WeatherText}</div>
